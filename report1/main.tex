@@ -256,17 +256,34 @@
 % ----------------------------------------------------------
 \chapter{Task number 2}
 \label{cap:introducao}
+This task's objective consists of finding the original signal's RF frequency that generated the peak at -250.7 kHz. It is known that the $Fs/2 = 512$ kHz, then the original sampling frequency is $1024$ kHz. Considering the same values of the application 5.2, the peak of -250.7 kHz was originated by a decimation that converted the $Fs$ to $Fs/2$ as follows:
 
-E
+\begin{align}
+	f_{peak} &= f_{filtered} - Fs/2 \\ \nonumber
+	f_{filtered} &= f_{peak} + Fs/2 \\ \nonumber
+	f_{filtered} &= -250.7 + 512 = 261.3 kHz.
+\end{align}
+
+In its turn, the frequency $f_{filtered}$ is the second strongest frequency of the signal before the filter. Then $f_{filtered} = f_{unfiltered}$, where $f_{unfiltered} = f_{downconverted}$. This way the original value of the frequency $f_{peak}$  is calculated as follows:
+\begin{align}
+	f_{unfiltered} &= f_{downconverted} \\ \nonumber
+	f_{downconverted} &= f_{original} - 341 \\ \nonumber
+	f_{original} &= f_{downconverted} + 341\\ \nonumber
+				 &= 261.3 + 341.333\\ \nonumber
+				 &= 602.6333 Khz.
+\end{align}
+
+Now the frequency $f_{original}$ overlaps the frequency axis which have [-$512$, $512$]. This way, to find where the  $f_{original}$ would be in this graph, the result frequency must be subtracted by $1024$ kHz, this way $f_{original} = 602.6333 -1024 = -421.3667$ kHz. Thus, the original RF frequency that originated $f_{peak}$ is $421.3667$ kHz.
+
 % ----------------------------------------------------------
 % Desenvolvimento
 % ----------------------------------------------------------
 \chapter{Task number 3}
 \label{cap:deselvolvimento}
 
-This task's objective is to modulate two message signals $x_1$ and $x_2$, using a different carrier for each singal.
-The carrier frequency used for each message is $7$kHz and $16$kHz respectively.
-After the multiplication of the message signals with the respective carriers, the resulting waves must be multiplexed and then add a white gaussian noise with a controllable power, this way the $SNR_c$ ratio can be controlled at the user's will. The chosen $SNR_c$ range varies from $[-5 to 30]$ dB, this way the multiplexed singal ($\hat{x}$) will have different PSDs at diffrent $SNR_c$s. The Fig.~\ref{fig:multi_30} shows the results for a SNR of 30 db:
+This task's objective is to modulate two message signals $x_1$ and $x_2$, using a different carrier for each signal.
+The carrier frequency used for each message is $7$kHz and $16$kHz, respectively.
+After multiplicating the message signals with the respective carriers, the resulting waves must be multiplexed and then add a white gaussian noise with a controllable power. This way, the $SNR_c$ ratio can be controlled at the user's will. The chosen $SNR_c$ range varies from $[-5 to 30]$ dB. This way, the multiplexed signal ($\hat{x}$) will have different PSDs at different $SNR_c$s. The Fig.~\ref{fig:multi_30} shows the results for an SNR of 30 db:
 
 \begin{figure}[h!]
 	\centering
@@ -284,14 +301,14 @@ The resulting PSD of $\hat{x}$ At a $SNR_c$ of $-5$ dB is described in the Fig.~
 	\label{fig:multi_5}
 \end{figure}
 
-After trasmitting $\hat{x}$ over the AWGN channel, the task objective consist in demultiplex the signal $\hat{x}$ and then demodulate and extract the information $\hat{x}_1$ and $\hat{x}_2$ that correspond directly to $x_1$ and $x_2$ respectively. To do so, the first step is a frequency downconversion as follows:
+After transmitting $\hat{x}$ over the AWGN channel, the task objective consist in demultiplex the signal $\hat{x}$ and then demodulate and extract the information $\hat{x}_1$ and $\hat{x}_2$ that correspond directly to $x_1$ and $x_2$ respectively. To do so, the first step is a frequency downconversion as follows:
 
 \begin{align}
 	\hat{x}_{down}(t) &= \hat{x}(t)carrier(t) \\ \nonumber
 	\hat{x}_{down}(t) &= \hat{x}(t)(e^{-j2\pi*Fc*t}).
 \end{align}
 
-Then the downconverted signal pass at suceptive fiters, to first eliminate the images from the negative frequency shifted to the positive frequency. The second filter eliminates the component of the other carrier, and the last filter isolates the information signal. The Figs. \ref{fig:hat_x1} and \ref{fig:hat_x2} show the result of this process to $\hat{x}_1$ and $\hat{x}_2$ respectively.
+Then the downconverted signal pass at susceptive filters to first eliminate the images from the negative frequency shifted to the positive frequency. The second filter eliminates the component of the other carrier, and the last filter isolates the information signal. The Figs. \ref{fig:hat_x1} and \ref{fig:hat_x2} show the result of this process to $\hat{x}_1$ and $\hat{x}_2$ respectively.
 \begin{figure}[h!]
 	\centering
 	\includegraphics{imagens/x1hat.eps}
@@ -306,7 +323,7 @@ Then the downconverted signal pass at suceptive fiters, to first eliminate the i
 	\label{fig:hat_x2}
 \end{figure}
 
-After this process, it was possible to trace a relationship between $SNR_c$ and $SNR_d$, using different white noise power levels. This relation is ilustrated in the Fig.~\ref{fig:snr}
+After this process, it was possible to trace a relationship between $SNR_c$ and $SNR_d$, using different white noise power levels. This relation is illustrated in the Fig.~\ref{fig:snr}
 
 \begin{figure}[h!]
 	\centering
